@@ -1,8 +1,8 @@
-
+%THIS FILE SWEEPS THE FREQUENCY AND CALLS THE DETECTION ALGORITHM
 for b= maks-20:1:maks+20
     obj1 = instrfind('Type', 'serial', 'Port', 'COM6', 'Tag', '');
     if isempty(obj1)
-      obj1 = serial('COM6');  %dakika basi klasor acmasini, diger koddan tekrar enstruman olusturmasini bekleme
+      obj1 = serial('COM6');
     else
       fclose(obj1);
       obj1 = obj1(1);
@@ -30,7 +30,7 @@ z=strcat('WMF0000',num2str(maks(1)),'00+0x0a');
 obj1 = instrfind('Type', 'serial', 'Port', 'COM6', 'Tag', '');
 
 if isempty(obj1)
-    obj1 = serial('COM6');  %dakika basi klasor acmasini, diger koddan tekrar enstruman olusturmasini bekleme
+    obj1 = serial('COM6');  
 else
     fclose(obj1);
     obj1 = obj1(1);

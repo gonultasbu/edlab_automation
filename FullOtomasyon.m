@@ -39,19 +39,19 @@ cam.Exit;
 %THE LINE CUTTING THROUGH THE SCANLINE HORIZONTALLY IS ENOUGH, THE LINE IS VERTICAL ANYWAY
 ROW_MIDDLE=mean(rowtest);
 
-%FIND THE BRIGHTEST SET OF POINTS ABOVE THE MIDDLE LINE (ROW VALUES), CONSIDER THAT THE INDICES AND THE ACTUAL IMAGE IS REVERSED
+%FIND THE BRIGHTEST SET OF POINTS ABOVE THE MIDDLE LINE, CONSIDER THAT THE INDICES AND THE ACTUAL IMAGE IS REVERSED
 mtop=max(max(Data(1:round(ROW_MIDDLE),1:1200)));
-[rowtop, coltop]=find(Data==mtop);                                              %EXTRACT THE INDEX
+[rowtop, coltop]=find(Data==mtop);
 rowtop=rowtop(rowtop<ceil(ROW_MIDDLE)+1 & rowtop>1);
 coltop=coltop(coltop<1200 & coltop>1);
-
 coltop=coltop(1);
 rowtop=rowtop(1);
 
-mbot=max(max(Data(round(ROW_MIDDLE):1024,1:1200)));    %HARD THRESHOLD ALERT
+%FIND THE BRIGHTEST SET OF POINTS BELOW THE MIDDLE LINE, CONSIDER THAT THE INDICES AND THE ACTUAL IMAGE IS REVERSED
+mbot=max(max(Data(round(ROW_MIDDLE):1024,1:1200)));
 [rowbot, colbot]=find(Data==mbot);
-rowbot=rowbot(rowbot<1024 & rowbot>floor(ROW_MIDDLE)-1); %HARD THRESHOLD ALERT
-colbot=colbot(colbot<1200 & colbot>1);   %HARD THRESHOLD ALERT
+rowbot=rowbot(rowbot<1024 & rowbot>floor(ROW_MIDDLE)-1);
+colbot=colbot(colbot<1200 & colbot>1);
 colbot=colbot(1);
 rowbot=rowbot(1);
 
