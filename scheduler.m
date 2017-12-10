@@ -1,6 +1,7 @@
 clear
 clc
-maks=76;            %HARD THRESHOLD ALERT
+prompt = 'INITIAL ESTIMATED FREQUENCY?'; 
+maks=input(prompt);            %HARD THRESHOLD INPUT
 ForLoop
 while(1==1)
     c=clock; 
