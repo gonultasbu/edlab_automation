@@ -13,6 +13,8 @@ end
 fclose(obj1);
 fopen(obj1);
 
+% READ THE CODE BELOW FROM THE DOCUMENTATION, DO NOT MESS WITH IT EXCEPT FOR cam.Timing.Exposure.Set()
+
 NET.addAssembly('C:\Program Files\Thorlabs\Scientific Imaging\DCx Camera Support\Develop\DotNet\uc480dotNet.dll');
 cam=uc480.Camera;
 cam.Init(1);
@@ -30,16 +32,19 @@ Data=permute(Data, [3,2,1]);
 %imtool(Data);
 cam.Exit;
 
+%THE IMAGE IS TAKEN AS A MATRIX IN Data
 
-
-
+%TO FIND THE MIDDLE POINT OF THE SCANLINE, PIXEL LOCATIONS WITH VALUES ABOVE 10 ARE FOUND
 [rowtest, coltest]=find(Data>10);
-ROW_MIDDLE=mean(rowtest)
+%THE LINE CUTTING THROUGH THE SCANLINE HORIZONTALLY IS ENOUGH, THE LINE IS VERTICAL ANYWAY
+ROW_MIDDLE=mean(rowtest);
 
-mtop=max(max(Data(1:round(ROW_MIDDLE),1:1200)));       %HARD THRESHOLD ALERT
-[rowtop, coltop]=find(Data==mtop);
-rowtop=rowtop(rowtop<ceil(ROW_MIDDLE)+1 & rowtop>1);    %HARD THRESHOLD ALERT
-coltop=coltop(coltop<1200 & coltop>1);                  %HARD THRESHOLD ALERT
+%FIND THE BRIGHTEST SET OF POINTS ABOVE THE MIDDLE LINE (ROW VALUES), CONSIDER THAT THE INDICES AND THE ACTUAL IMAGE IS REVERSED
+mtop=max(max(Data(1:round(ROW_MIDDLE),1:1200)));
+[rowtop, coltop]=find(Data==mtop);                                              %EXTRACT THE INDEX
+rowtop=rowtop(rowtop<ceil(ROW_MIDDLE)+1 & rowtop>1);
+coltop=coltop(coltop<1200 & coltop>1);
+
 coltop=coltop(1);
 rowtop=rowtop(1);
 
@@ -49,8 +54,8 @@ rowbot=rowbot(rowbot<1024 & rowbot>floor(ROW_MIDDLE)-1); %HARD THRESHOLD ALERT
 colbot=colbot(colbot<1200 & colbot>1);   %HARD THRESHOLD ALERT
 colbot=colbot(1);
 rowbot=rowbot(1);
-distance=sqrt((max(rowtop)-min(rowbot)).^2 + (max(coltop)-min(colbot)).^2)
 
+distance=sqrt((max(rowtop)-min(rowbot)).^2 + (max(coltop)-min(colbot)).^2)
 fprintf(fid,num2str(distance));
 fprintf(fid,'\n');
 fclose(fid);
