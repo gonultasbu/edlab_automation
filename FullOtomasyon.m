@@ -1,7 +1,8 @@
 clc
 clearvars -except maks MI b
+
 obj1 = instrfind('Type', 'serial', 'Port', 'COM6', 'Tag', '');
-time=datestr(now,'mm-dd-yyyy HH'); %clc-clear sorunundan ve dakikan?n de?i?mesi sebebiyle bunu HH olarak b?rakt?m ?imdilik saat ba?lar?nda çal??t?rmamal?y?z
+time=datestr(now,'mm-dd-yyyy HH'); %SHOULD AVOID RUNNING IT AT HH:00
 fid=fopen(time,'a');
 if isempty(obj1)
     obj1 = serial('COM6')
@@ -11,6 +12,7 @@ else
 end
 fclose(obj1);
 fopen(obj1);
+
 NET.addAssembly('C:\Program Files\Thorlabs\Scientific Imaging\DCx Camera Support\Develop\DotNet\uc480dotNet.dll');
 cam=uc480.Camera;
 cam.Init(1);
@@ -27,6 +29,9 @@ Data = Data(1:3 , 1:Width, 1:Height);
 Data=permute(Data, [3,2,1]);
 %imtool(Data);
 cam.Exit;
+
+
+
 
 [rowtest, coltest]=find(Data>10);
 ROW_MIDDLE=mean(rowtest)
