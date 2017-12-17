@@ -41,19 +41,17 @@ ROW_MIDDLE=mean(rowtest);
 
 %FIND THE BRIGHTEST SET OF POINTS ABOVE THE MIDDLE LINE, CONSIDER THAT THE INDICES AND THE ACTUAL IMAGE IS REVERSED
 mtop=max(max(Data(1:round(ROW_MIDDLE),1:1200)));
-[rowtop, coltop]=find(Data==mtop);
+[rowtop, coltop]=find(Data>mtop-50 & Data<mtop+1);
 rowtop=rowtop(rowtop<ceil(ROW_MIDDLE)+1 & rowtop>1);
 coltop=coltop(coltop<1200 & coltop>1);
-coltop=coltop(1);
-rowtop=rowtop(1);
+
 
 %FIND THE BRIGHTEST SET OF POINTS BELOW THE MIDDLE LINE, CONSIDER THAT THE INDICES AND THE ACTUAL IMAGE IS REVERSED
 mbot=max(max(Data(round(ROW_MIDDLE):1024,1:1200)));
-[rowbot, colbot]=find(Data==mbot);
+[rowbot, colbot]=find(Data>mtop-50 & Data<mtop+1);
 rowbot=rowbot(rowbot<1024 & rowbot>floor(ROW_MIDDLE)-1);
 colbot=colbot(colbot<1200 & colbot>1);
-colbot=colbot(1);
-rowbot=rowbot(1);
+
 
 distance=sqrt((max(rowtop)-min(rowbot)).^2 + (max(coltop)-min(colbot)).^2)
 fprintf(fid,num2str(distance));
