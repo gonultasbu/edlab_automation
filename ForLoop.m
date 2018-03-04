@@ -6,14 +6,14 @@ for b= maks-20:1:maks+20
     else
       fclose(obj1);
       obj1 = obj1(1);
-end
+    end
 
 h=strcat('WMF0000',num2str(b),'00+0x0a');
 
 fclose(obj1);
 fopen(obj1);
 fprintf(obj1, 'WMW00+ 0x0a');
-fprintf(obj1, 'WMA17.0+ 0x0a');
+%fprintf(obj1, 'WMA06.0+ 0x0a');
 fprintf(obj1, h);
 FullOtomasyon
 fclose(obj1);
