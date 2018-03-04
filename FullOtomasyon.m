@@ -48,7 +48,7 @@ coltop=coltop(coltop<1200 & coltop>1);
 
 %FIND THE BRIGHTEST SET OF POINTS BELOW THE MIDDLE LINE, CONSIDER THAT THE INDICES AND THE ACTUAL IMAGE IS REVERSED
 mbot=max(max(Data(round(ROW_MIDDLE):1024,1:1200)));
-[rowbot, colbot]=find(Data>mtop-50 & Data<mtop+1); %HARD PARAMETER OF 50 
+[rowbot, colbot]=find(Data>mbot-50 & Data<mbot+1); %HARD PARAMETER OF 50 
 rowbot=rowbot(rowbot<1024 & rowbot>floor(ROW_MIDDLE)-1);
 colbot=colbot(colbot<1200 & colbot>1);
 
